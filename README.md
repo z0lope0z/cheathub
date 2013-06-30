@@ -1,7 +1,8 @@
 #CheatHub
 -----------------------
 
-This script automatically pushes code taken from the interwebs
+This script automatically pushes code taken from the interwebs.
+It makes you look like a frequent git commiter, hence cheathub
 
 ## General Requirements
 
