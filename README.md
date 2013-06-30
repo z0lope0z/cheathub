@@ -31,3 +31,10 @@ urls = http://code.google.com/p/aima-python/, http://www.google.com/
 [config]
 last_date = Jun 30 2013 10:30AM
 ```
+
+## Running
+After setting up setup.cfg, you can now run the script directly
+
+```
+python script.py install
+```
