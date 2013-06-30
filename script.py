@@ -16,10 +16,10 @@ class URLCrawler:
     
     def __init__(self):
         os.system('mkdir files/')
-        os.system('cd files/')
+        os.chdir('files/')
         os.system('git init files/')
         os.system('git remote add origin %s'% config.get('github', 'github_repo'))
-        os.system('cd ..')
+        os.chdir('..')
     
     def crawl_site(self, url):
         response = urllib.urlopen(url)
@@ -55,20 +55,24 @@ class URLCrawler:
         return False
     
     def push_git(self, message):
-        os.system('cd files/')
+        os.chdir('files/')
+        os.system('git pull origin master')
         os.system('git add .')
         os.system('git commit -a -m "%s"' % message)
         os.system('git push origin master')
-        
+        os.chdir('..')
+        self._update_last_update()
+    
+    def _update_last_update(self):
+        last_date = config.get('config', 'last_date')
+        datetime.strptime(last_date, '%b %d %Y %I:%M%p')
+        config.set('config', 'last_date', datetime.now().strftime('%b %d %Y %I:%M%p'))
+        with open('setup.cfg', 'wb') as configfile:
+            config.write(configfile)
+
 
 source_sites = []
 source_sites = config.get('links', 'urls').split(',')
-last_date = config.get('config', 'last_date')
-datetime.strptime(last_date, '%b %d %Y %I:%M%p')
-config.set('config', 'last_date', datetime.now().strftime('%b %d %Y %I:%M%p'))
-with open('setup.cfg', 'wb') as configfile:
-    config.write(configfile)
-
 crawler = URLCrawler()
 crawler.crawl_site(source_sites[0])
 crawler.load_new()
