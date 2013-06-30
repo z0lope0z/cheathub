@@ -17,7 +17,7 @@ class URLCrawler:
     def __init__(self):
         os.system('mkdir files/')
         os.chdir('files/')
-        os.system('git init files/')
+        os.system('git init')
         os.system('git remote add origin %s'% config.get('github', 'github_repo'))
         os.chdir('..')
     
