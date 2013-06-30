@@ -17,7 +17,7 @@ You will need to modify setup.cfg
 
 * github repo - the github repository wherein you want to place your files
 * urls - a list of urls where the python code is taken
-* last_date - modified by the script so it knows when was the last time it was run
+* last_date - modified by the script so it knows the last time it was executed
 
 
 ### Example
