@@ -10,7 +10,6 @@ setup(name='CheatHub',
       url='https://github.com/z0lope0z/',
       install_requires=[
           "beautifulsoup4",
-          "caldav == 0.1.4",
       ],
      )
 
