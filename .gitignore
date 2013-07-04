@@ -1,4 +1,6 @@
 files/
+CheatHub.egg-info/
+dist/
 .project
 .pydevproject
 ~^
