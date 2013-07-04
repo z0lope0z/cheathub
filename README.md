@@ -8,8 +8,10 @@ This script automatically pushes code taken from the interwebs, making you look 
 * [Python 2.7 or higher](http://www.python.org/download/releases/2.7/)
 * [Beautiful Soup 4](http://www.crummy.com/software/BeautifulSoup/)
 
+You can install the project dependencies by running the setup.py script
+
 ```
-  pip install beautifulsoup4
+  python setup.py install
 ```
 
 ## Configuration
@@ -33,8 +35,8 @@ last_date = Jun 30 2013 10:30AM
 ```
 
 ## Running
-After setting up setup.cfg, you can now run the script directly
+After configuring setup.cfg, you can now run the script directly
 
 ```
-python script.py install
+python script.py
 ```
