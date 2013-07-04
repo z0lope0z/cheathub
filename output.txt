@@ -18,3 +18,10 @@ def list_powerset2(lst):
 
 def powerset(s):
     return frozenset(map(frozenset, list_powerset(list(s))))
+    
+    upgraded to django 1.4
+    removed ADMIN_MEDIA_PREFIX
+    removed varify_exists
+    django.conf.urls.defaults is deprecated
+    updated folder structure
+    upgraded manage.py to 1.4 specs

@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 config = ConfigParser.RawConfigParser()
 config.read('setup.cfg')
 
+
 class URLCrawler:
     urls = {}
     done = []
@@ -18,7 +19,7 @@ class URLCrawler:
         os.system('mkdir files/')
         os.chdir('files/')
         os.system('git init')
-        os.system('git remote add origin %s'% config.get('github', 'github_repo'))
+        os.system('git remote add origin %s' % config.get('github', 'github_repo'))
         os.chdir('..')
     
     def crawl_site(self, url):
@@ -33,15 +34,19 @@ class URLCrawler:
             self.urls[file_title] = link
     
     def load_new(self):
+        #is_valid if script was able to download something
+        is_valid = False
         for key in self.urls:
             if not self._check_done(key):
                 file = urllib.urlretrieve(self.urls[key])
                 os.system('mkdir files/%s' % (key))
                 os.system('wget --directory-prefix=files/%s %s' % (key, self.urls[key]))
+                is_valid = True
                 break
             else:
                 print "File name %s already exists" % key
-    
+        return is_valid
+
     def _check_done(self, file_name):
         if not self.done:
             files = os.listdir('files')
@@ -53,7 +58,7 @@ class URLCrawler:
         if file_name in self.done:
             return True
         return False
-    
+
     def push_git(self, message):
         os.chdir('files/')
         os.system('git pull origin master')
@@ -62,7 +67,15 @@ class URLCrawler:
         os.system('git push origin master')
         os.chdir('..')
         self._update_last_update()
-    
+
+    def clean(self):
+        files = os.listdir('files')
+        os.chdir('files/')
+        for file in files:
+            os.system('rm -rf %s/' % file)
+        os.chdir('..')
+        self.push_git("cleared the files")
+
     def _update_last_update(self):
         last_date = config.get('config', 'last_date')
         datetime.strptime(last_date, '%b %d %Y %I:%M%p')
@@ -74,6 +87,10 @@ class URLCrawler:
 source_sites = []
 source_sites = config.get('links', 'urls').split(',')
 crawler = URLCrawler()
-crawler.crawl_site(source_sites[0])
-crawler.load_new()
+if not crawler.load_new():
+    crawler.clean()
+    crawler.load_new()
+crawler.clean()
+#crawler.crawl_site(source_sites[0])
+#crawler.load_new()
 crawler.push_git("initial commit")
