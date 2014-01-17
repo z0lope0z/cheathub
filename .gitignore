@@ -4,4 +4,4 @@ dist/
 .project
 .pydevproject
 ~^
-*.swp
+*.sw*
